@@ -1,9 +1,15 @@
 #include <Time.h>
-float v_right = 0;
-float v_left = 0;
+float current_v_right = 0;
+float current_v_left = 0;
+float old_v_right = 0;
+float old_v_left = 0;
+float c_right = 0;
+float c_left = 0;
 float to_left = millis(); // "old time"
 float to_right = millis();  
 float dist_pp = 0.55*3.1415926535/29;
+float a_left = 0;
+float a_right = 0;
 
 void setup() {
   // put your setup code here, to run once:
@@ -19,41 +25,43 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  //Serial.println("Left        Right");
-  //Serial.print(v_left);
-  //Serial.print(" ");
-  //Serial.print(v_right);
-  //Serial.print("\n");
-  //String s = (String) v_left + " " + v_right + " 00000000000000000000000000000000000000000000000000000000";
-  String s = (String) v_left + " " + v_right;
+  //String s = (String) current_v_left + " " + current_v_right; // Orig. Output for cam
+  String s = (String) "current_v_left:" + current_v_left + " current_v_right:" + current_v_right + " c_left:" + c_left + " c_right:" + c_right;
   Serial.println(s);
-  //Serial.print("        ");
-  //Serial.print(v_right);
-  //Serial.println("");
 
-  if (millis() - to_left > 1000){
-    v_left = 0;
+  if (current_v_left + a_left * (millis() - to_left) < 0) {
+    current_v_left = 0;
+    a_left = 0;
+    
   }
 
-  if (millis() - to_right > 1000){
-    v_right = 0;
+  if (current_v_right + a_right * (millis() - to_right) < 0) {
+    current_v_right = 0;
+    a_right = 0;
   }
 
 }
 
 void updateleft(){
-  float tc_left = millis();
-  float current_mean_v_left = dist_pp/(tc_left - to_left)*1000*3.6;
-  to_left = tc_left;
-
-  v_left = current_mean_v_left;
+  c_left++;
   
+  float tc_left = millis();
+  current_v_left = dist_pp/(tc_left - to_left)*1000*3.6;
+  
+  a_left = (current_v_left - old_v_left) / (tc_left - to_left);
+
+  old_v_left = current_v_left;
+  to_left = tc_left;
 }
 
 void updateright(){
-  float tc_right = millis();
-  float current_mean_v_right = dist_pp/(tc_right - to_right)*1000*3.6;
-  to_right = tc_right;
+  c_right++;
 
-  v_right = current_mean_v_right;
+  float tc_right = millis();
+  current_v_right = dist_pp/(tc_right - to_right)*1000*3.6;
+  
+  a_right = (current_v_right - old_v_right) / (tc_right - to_right);
+
+  old_v_right = current_v_right;  
+  to_right = tc_right;
 }
