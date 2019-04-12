@@ -14,7 +14,7 @@ wh2=[]
 interval = 0
 d = 0.00
 for x in lines:
-    n = float(x.split(' ')[0])
+    n = float((x.split(' ')[0]).split(':'))[1]
     w1 = float(x.split(' ')[1])
     w2 = float(x.split(' ')[2])
     if n - d > interval:
