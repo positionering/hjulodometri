@@ -25,8 +25,8 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
 
-  //String s = (String) current_v_left + " " + current_v_right; // Orig. Output for cam
-  String s = (String) "current_v_left:" + current_v_left + " current_v_right:" + current_v_right + " c_left:" + c_left + " c_right:" + c_right;
+  String s = (String) current_v_left + " " + current_v_right; // Orig. Output for cam
+  //String s = (String) "current_v_left:" + current_v_left + " current_v_right:" + current_v_right + " c_left:" + c_left + " c_right:" + c_right;
   Serial.println(s);
 
   if (current_v_left + a_left * (millis() - to_left) < 0) {
