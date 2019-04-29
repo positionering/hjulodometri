@@ -60,7 +60,7 @@ void updateleft(){
   float tc_left = millis();
 
   tp_left = tc_left - to_left;
-  current_v_left = dist_pp/tp_left*1000*3.6;
+  current_v_left = dist_pp/tp_left*1000;
   
   a_left = (current_v_left - old_v_left) / (tc_left - to_left);
  
@@ -74,7 +74,7 @@ void updateright(){
   float tc_right = millis();
 
   tp_right = tc_right - to_right;
-  current_v_right = dist_pp/tp_right*1000*3.6;
+  current_v_right = dist_pp/tp_right*1000;
   
   a_right = (current_v_right - old_v_right) / (tc_right - to_right);
 
