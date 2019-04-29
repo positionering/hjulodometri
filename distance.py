@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 
 
-nr = 3
+nr = 6
 
 
 nm  = ['testlogs/wodometry_test_first30',
