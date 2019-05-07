@@ -106,5 +106,5 @@ ax2.grid()
 #plt.subplot(2,1,2)
 #plt.plot(tid, wh1, 'g--', tid, wh2, 'r--')
 #plt.grid()
+plt.savefig('figure_test'+str(nr)+'.pdf')
 
-plt.show()
